@@ -78,10 +78,6 @@ node {
 
 
 
-def body = 'test'
-def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON',
-  httpMode: 'POST',
-  requestBody: body, consoleLogResponseBody: true,
-  url: '192.168.0.88',
-  validResponseContent: 'ok'
-println "Sent a notification, got a $response response"
+def response = httpRequest "http://192.168.0.88"
+println('Status: '+response.status)
+println('Response: '+response.content)
