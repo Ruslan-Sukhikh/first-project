@@ -12,6 +12,7 @@ def attachments = [
     color: '#ff0000'
   ]
 ]
+slackSend(channel: "#update-wp", attachments: attachments)
 
 
 parameters {
@@ -43,7 +44,5 @@ pipeline {
                 sh "ssh root@${params.site} 'chown -R root:root $WORKDIR' "
             }
         }
-        slackSend(channel: "#update-wp", attachments: attachments)
-
     }
 }
