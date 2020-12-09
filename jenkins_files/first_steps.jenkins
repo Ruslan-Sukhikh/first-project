@@ -5,6 +5,14 @@ properties([disableConcurrentBuilds()])
 def WP = "https://wordpress.org/latest.zip"
 def WORKDIR = "/var/www/html/"
 
+def attachments = [
+  [
+    text: 'I find your lack of faith disturbing!',
+    fallback: 'Hey, Vader seems to be mad at you.',
+    color: '#ff0000'
+  ]
+]
+
 
 parameters {
         string(Name: 'site', description: 'На каком сайте обновить WP')
@@ -35,5 +43,7 @@ pipeline {
                 sh "ssh root@${params.site} 'chown -R root:root $WORKDIR' "
             }
         }
+        slackSend(channel: "#update-wp", attachments: attachments)
+
     }
 }
