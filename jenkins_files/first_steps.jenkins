@@ -21,7 +21,7 @@ pipeline {
                 sh "ssh root@192.168.0.88 'cd /root/wordpress/ && cp -f -r  wordpress/. /var/www/html/' "
             }
         }
-        stage("Update WP") {
+        stage("Change chown") {
             steps {
                 sh "ssh root@192.168.0.88 'chown -R www:www /var/www/html' "
             }
