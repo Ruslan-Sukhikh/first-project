@@ -5,7 +5,7 @@ properties([disableConcurrentBuilds()])
 def IP = "@site"
 def WP = "https://wordpress.org/latest.zip"
 def SITE = "/var/www/html/"
-def
+
 
 pipeline {
     agent { 
