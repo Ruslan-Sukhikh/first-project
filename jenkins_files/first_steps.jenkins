@@ -82,6 +82,6 @@ def body = 'test'
 def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON',
   httpMode: 'POST',
   requestBody: body, consoleLogResponseBody: true,
-  url: 'http://requestb.in/1ecf72r1',
+  url: '192.168.0.88',
   validResponseContent: 'ok'
 println "Sent a notification, got a $response response"
