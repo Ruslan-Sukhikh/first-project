@@ -39,4 +39,4 @@ pipeline {
     }
 }
 
-slackSend color: "good", message: "Message from Jenkins Pipeline"
+slackSend color: "good", message: "Updating ${params.site}"
