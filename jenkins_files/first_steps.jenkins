@@ -2,10 +2,10 @@
 // Check ub1 properties
 properties([disableConcurrentBuilds()])
 
-def IP = "192.168.0.88"
+def IP = "@site"
 def WP = "https://wordpress.org/latest.zip"
 def SITE = "/var/www/html/"
-
+def
 
 pipeline {
     agent { 
