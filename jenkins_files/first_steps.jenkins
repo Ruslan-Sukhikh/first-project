@@ -1,5 +1,5 @@
 #!groovy
-// Check ub1 properties
+// Update WP properties
 properties([disableConcurrentBuilds()])
 
 def WP = "https://wordpress.org/latest.zip"
