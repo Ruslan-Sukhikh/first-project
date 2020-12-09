@@ -16,5 +16,15 @@ pipeline {
                 sh "ssh root@192.168.0.88 'pwd && wget https://wordpress.org/latest.zip && unzip latest.zip' "
             }
         }
+        stage("Update WP") {
+            steps {
+                sh "ssh root@192.168.0.88 'cd /root/wordpress/ && cp -f -r  wordpress/. /var/www/html/' "
+            }
+        }
+        stage("Update WP") {
+            steps {
+                sh "ssh root@192.168.0.88 'chown -R www:www /var/www/html' "
+            }
+        }
     }
 }
