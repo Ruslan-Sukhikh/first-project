@@ -23,18 +23,7 @@ def notifySlack(String buildStatus = 'STARTED') {
     slackSend(color: color, message: msg)
 }
 
-node {
-    try {
-        notifySlack()
 
-        // Existing build steps.
-    } catch (e) {
-        currentBuild.result = 'FAILURE'
-        throw e
-    } finally {
-        notifySlack(currentBuild.result)
-    }
-}
 
 def WP = "https://wordpress.org/latest.zip"
 def WORKDIR = "/var/www/html/"
@@ -74,3 +63,15 @@ pipeline {
 }
 
 
+node {
+    try {
+        notifySlack()
+
+        // Existing build steps.
+    } catch (e) {
+        currentBuild.result = 'FAILURE'
+        throw e
+    } finally {
+        notifySlack(currentBuild.result)
+    }
+}
