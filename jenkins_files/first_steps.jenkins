@@ -39,4 +39,4 @@ pipeline {
     }
 }
 
-slackSend color: "good", message: "Updating ${params.site}, $BUILD_USER_ID"
+slackSend color: "good", message: "Updating ${params.site}"
