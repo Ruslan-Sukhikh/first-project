@@ -1,13 +1,12 @@
 #!groovy
 // Update WP properties
-properties([disableConcurrentBuilds()])
 
+properties([disableConcurrentBuilds()])
 
 
 def WP = "https://wordpress.org/latest.zip"
 def WORKDIR = "/var/www/html/"
 
-def response = httpRequest "http://192.168.0.88"
 
 parameters {
         string(Name: 'site', description: 'На каком сайте обновить WP')
@@ -38,18 +37,8 @@ pipeline {
                 sh "ssh root@${params.site} 'chown -R root:root $WORKDIR' "
             }
         }
-        stage("Check site") {
-            steps {
-
-                println('Status: '+response.status)
-                println('Response: '+response.content)
-            }
-        }
     }
 }
-
-
-
 
 
 def notifySlack(String buildStatus = 'STARTED') {
