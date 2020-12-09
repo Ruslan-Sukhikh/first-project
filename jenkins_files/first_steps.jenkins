@@ -13,7 +13,9 @@ pipeline {
     stages {
         stage("Download WP and unzip step") {
             steps {
-                sh "ssh root@192.168.0.88 'pwd' \'wget https://wordpress.org/latest.zip\' \'unzip latest.zip\'"
+                sh "ssh root@192.168.0.88 'pwd' "
+                sh "wget https://wordpress.org/latest.zip"
+                sh "unzip latest.zip"
             }
         }
     }
