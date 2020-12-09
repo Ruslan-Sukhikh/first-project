@@ -21,5 +21,10 @@ pipeline {
                 sh 'ssh root@192.168.0.88 \'uptime\''
             }
         }
+        stage("Download WP and unzip step") {
+            steps {
+                sh 'ssh root@192.168.0.88 && cd /home/ && wget https://wordpress.org/latest.zip && unzip '
+            }
+        }
     }
 }
