@@ -39,4 +39,4 @@ pipeline {
     }
 }
 
-slackSend(channel: "#update-wp", message: "Updating ${params.site}")
+slackSend color: "good", message: "Updating ${params.site}, $BUILD_USER_ID"
