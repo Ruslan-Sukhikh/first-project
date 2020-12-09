@@ -6,7 +6,7 @@ def WP = "https://wordpress.org/latest.zip"
 def WORKDIR = "/var/www/html/"
 
 parameters {
-        string(Name: 'site', defaultValue: 'satellites', description: 'На каком сайте обновить WP')
+        string(Name: 'site', description: 'На каком сайте обновить WP')
 
 }
 
