@@ -38,8 +38,18 @@ pipeline {
                 sh "ssh root@${params.site} 'chown -R root:root $WORKDIR' "
             }
         }
+        stage("Check site") {
+            steps {
+                def response = httpRequest "http://192.168.0.88"
+                println('Status: '+response.status)
+                println('Response: '+response.content)
+            }
+        }
     }
 }
+
+
+
 
 
 def notifySlack(String buildStatus = 'STARTED') {
@@ -78,6 +88,3 @@ node {
 
 
 
-def response = httpRequest "http://192.168.0.88"
-println('Status: '+response.status)
-println('Response: '+response.content)
