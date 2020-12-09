@@ -4,7 +4,7 @@ properties([disableConcurrentBuilds()])
 
 def WP = "https://wordpress.org/latest.zip"
 def WORKDIR = "/var/www/html/"
-def OLD-WP = "/root/wordpress /root/latest.zip"
+
 
 parameters {
         string(Name: 'site', description: 'На каком сайте обновить WP')
@@ -22,7 +22,7 @@ pipeline {
     stages {
         stage("Download WP and unzip") {
             steps {
-                sh "ssh root@${params.site} 'rm -rf $OLD-WP && wget $WP && unzip latest.zip' "
+                sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip latest.zip' "
             }
         }
         stage("Update WP") {
