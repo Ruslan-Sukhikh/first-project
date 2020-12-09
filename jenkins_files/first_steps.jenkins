@@ -2,10 +2,13 @@
 // Check ub1 properties
 properties([disableConcurrentBuilds()])
 
-def IP = "@site"
 def WP = "https://wordpress.org/latest.zip"
-def SITE = "/var/www/html/"
+def WORKDIR = "/var/www/html/"
 
+parameters {
+        string(Name: 'site', defaultValue: 'satellites', description: 'На каком сайте обновить WP')
+
+}
 
 pipeline {
     agent { 
@@ -18,17 +21,17 @@ pipeline {
     stages {
         stage("Download WP and unzip step") {
             steps {
-                sh "ssh root@$IP 'pwd && wget $WP && unzip latest.zip' "
+                sh "ssh root@${params.site} 'pwd && wget $WP && unzip latest.zip' "
             }
         }
         stage("Update WP") {
             steps {
-                sh "ssh root@$IP 'cd /root/ && cp -f -r  wordpress/. $SITE' "
+                sh "ssh root@${params.site} 'cd /root/ && cp -f -r  wordpress/. $WORKDIR' "
             }
         }
         stage("Change chown") {
             steps {
-                sh "ssh root@$IP 'chown -R root:root $SITE' "
+                sh "ssh root@${params.site} 'chown -R root:root $WORKDIR' "
             }
         }
     }
