@@ -5,13 +5,13 @@ properties([disableConcurrentBuilds()])
 def WP = "https://wordpress.org/latest.zip"
 def WORKDIR = "/var/www/html/"
 
-def attachments = [
-  [
+def attachments = {
+  {
     text: 'I find your lack of faith disturbing!',
     fallback: 'Hey, Vader seems to be mad at you.',
     color: '#ff0000'
-  ]
-]
+  }
+}
 slackSend(channel: "#update-wp", attachments: attachments)
 
 
