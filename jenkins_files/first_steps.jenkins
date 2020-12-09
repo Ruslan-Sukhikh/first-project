@@ -23,7 +23,7 @@ pipeline {
         }
         stage("Change chown") {
             steps {
-                sh "ssh root@192.168.0.88 'chown -R www:www /var/www/html' "
+                sh "ssh root@192.168.0.88 'chown -R root:root /var/www/html' "
             }
         }
     }
