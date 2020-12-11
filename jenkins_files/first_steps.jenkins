@@ -21,6 +21,9 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
+
+    def response = httpRequest "http://${params.site}"
+
     stages {
         stage("Download WP and Unzip") {
             steps {
@@ -39,8 +42,6 @@ pipeline {
         }
         stage("Check site") {
             steps {
-            def response = httpRequest "http://${params.site}"
-
                 println('Status: '+response.status)
                 println('Response: '+response.content)
             }
