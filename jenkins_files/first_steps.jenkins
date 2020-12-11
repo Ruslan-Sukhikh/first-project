@@ -23,7 +23,7 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("Download WP and unzip") {
+        stage("Download WP and Unzip") {
             steps {
                 sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip latest.zip' "
             }
@@ -46,6 +46,11 @@ pipeline {
         }
     }
 }
+        post {
+        always {
+            junit 'build/reports/**/*.xml'
+            }
+        }
 
 
 def notifySlack(String buildStatus = 'STARTED') {
