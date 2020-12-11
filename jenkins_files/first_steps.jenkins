@@ -44,6 +44,17 @@ pipeline {
                 println('Response: '+response.content)
             }
         }
+        stages {
+        stage('Test') {
+            steps {
+                sh './gradlew check'
+            }
+        }
+        post {
+        always {
+            junit 'build/reports/**/*.xml'
+            }
+        }
     }
 }
 
