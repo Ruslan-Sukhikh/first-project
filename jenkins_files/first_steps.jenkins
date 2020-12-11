@@ -38,8 +38,9 @@ pipeline {
             }
         }
         stage("Check site") {
-        def response = httpRequest "http://${params.site}"
             steps {
+            def response = httpRequest "http://${params.site}"
+
                 println('Status: '+response.status)
                 println('Response: '+response.content)
             }
