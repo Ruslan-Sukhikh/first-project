@@ -7,7 +7,7 @@ properties([disableConcurrentBuilds()])
 def WP = "https://wordpress.org/latest.zip"
 def WORKDIR = "/var/www/html/"
 
-def response = httpRequest "${params.site}"
+def response = httpRequest "http://${params.site}"
 
 
 
