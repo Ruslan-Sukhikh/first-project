@@ -7,7 +7,6 @@ properties([disableConcurrentBuilds()])
 def WP = "https://wordpress.org/latest.zip"
 def WORKDIR = "/var/www/html/"
 
-def response = httpRequest "http://${params.site}"
 
 parameters {
         string(Name: 'site', description: 'На каком сайте обновить WP')
@@ -39,6 +38,7 @@ pipeline {
             }
         }
         stage("Check site") {
+        def response = httpRequest "http://${params.site}"
             steps {
                 println('Status: '+response.status)
                 println('Response: '+response.content)
