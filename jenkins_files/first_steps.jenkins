@@ -38,10 +38,6 @@ pipeline {
                 sh "ssh root@${params.site} 'chown -R root:root $WORKDIR' "
             }
         }
-        stage('Results') {
-        junit '**/target/surefire-reports/TEST-*.xml'
-        archiveArtifacts 'target/*.jar'
-        }
     }
 }
 
