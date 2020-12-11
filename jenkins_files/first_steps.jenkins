@@ -22,8 +22,6 @@ pipeline {
         timestamps()
     }
 
-    def response = httpRequest "http://${params.site}"
-
     stages {
         stage("Download WP and Unzip") {
             steps {
@@ -40,16 +38,10 @@ pipeline {
                 sh "ssh root@${params.site} 'chown -R root:root $WORKDIR' "
             }
         }
-        stage("Check site") {
-            steps {
-                println('Status: '+response.status)
-                println('Response: '+response.content)
-            }
-        }
     }
 }
 
-
+httpRequest httpMode: 'POST', ignoreSslErrors: true, responseHandle: 'NONE', url: '192.168.0.88', wrapAsMultipart: false
 
 def notifySlack(String buildStatus = 'STARTED') {
     // Build status of null means success.
