@@ -7,7 +7,6 @@ properties([disableConcurrentBuilds()])
 def WP = "https://wordpress.org/latest.zip"
 def WORKDIR = "/var/www/html/"
 
-def response = httpRequest "http://${params.site}"
 
 
 
@@ -48,6 +47,7 @@ pipeline {
         }
     }
 }
+def response = httpRequest "http://${params.site}"
 
 
 def notifySlack(String buildStatus = 'STARTED') {
