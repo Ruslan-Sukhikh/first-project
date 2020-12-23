@@ -30,7 +30,7 @@ pipeline {
         }
         stage("Download WP and Unzip") {
             steps {
-                sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip latest.zip' "
+                sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
             }
         }
         stage("Update WP") {
