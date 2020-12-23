@@ -6,7 +6,7 @@ properties([disableConcurrentBuilds()])
 
 def WP = "https://wordpress.org/wordpress-5.6.zip"
 def WORKDIR = "/var/www/html/"
-def CHECK = "ssh root@192.168.0.110 'grep "wp_version =" /var/www/html/wp-includes/version.php'"
+def CHECK = "ssh root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php'"
 
 parameters {
         string(Name: 'site', description: 'На каком сайте обновить WP')
@@ -28,8 +28,6 @@ pipeline {
                 if ( $CHECK == "$wp_version = '5.6';" )
                 then
                     echo "GOOD"
-                else
-                    echo "NOT GOOD"
                 fi
             }
         }
