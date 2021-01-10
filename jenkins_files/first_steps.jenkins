@@ -27,9 +27,9 @@ pipeline {
             steps {
                 if ( $CHECK == "$wp_version = '5.6';" );
                 then
-                    echo "GOOD"
+                    echo "Обновляю"
                 else
-                    echo "NOT GOOD"
+                    echo "Обновление не требуется"
                 fi
             }
         }
