@@ -26,7 +26,7 @@ pipeline {
         stage("Check version WP") {
             steps {
                script {
-                if ($CHECK == "wp_version = '5.6';")
+                if ($CHECK == "wp_version = '5.6';"){
                 echo "Build is exists in S3"
                 currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
                 sleep(1)
@@ -34,8 +34,7 @@ pipeline {
              }
           }
        }
-
-
+     }
         stage("Download WP and Unzip") {
             steps {
                 sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
