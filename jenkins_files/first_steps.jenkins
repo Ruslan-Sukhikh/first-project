@@ -27,9 +27,7 @@ pipeline {
             steps {
                script {
                 if ($CHECK == "wp_version = '5.6';"){
-                echo "Build is exists in S3"
-                currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
-                sleep(1)
+                echo "Update"
                 }
              }
           }
