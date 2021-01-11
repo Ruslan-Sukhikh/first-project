@@ -36,7 +36,6 @@ pipeline {
                 }
             }
         }
-      }
         stage("Update WP") {
             steps {
                 sh "ssh root@${params.site} 'cd /root/ && cp -f -r  wordpress/. $WORKDIR' "
@@ -48,6 +47,7 @@ pipeline {
             }
         }
     }
+ }
 
 
 
