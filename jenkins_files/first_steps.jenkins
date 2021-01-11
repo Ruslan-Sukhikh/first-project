@@ -25,12 +25,14 @@ pipeline {
     stages {
         stage("Check version WP") {
             steps {
-                if ( $CHECK == "$wp_version = '5.6';" );
-                then
-                    echo "Обновляю"
-                else
-                    echo "Обновление не требуется"
-                fi
+                if (IS_PROD == false && BUILD_EXIST == 0) {
+                echo "Build is exists in S3"
+                currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
+                sleep(1)
+              }
+
+                currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
+                sleep(1)
             }
         }
         stage("Download WP and Unzip") {
