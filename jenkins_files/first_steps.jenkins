@@ -39,8 +39,8 @@ pipeline {
                     exit
                     EOF"""
 
-//            }
-//        }
+            }
+        }
         stage("Check version WP") {
             steps {
                script {
