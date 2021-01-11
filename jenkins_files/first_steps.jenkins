@@ -28,7 +28,7 @@ pipeline {
         stage("Check version WP") {
             steps {
                script {
-                if ($WP_VER == 5.6) {
+                if ($WP_VER == '5.6') {
                 echo "OK"
                     }else{
                     echo "Not OK"
