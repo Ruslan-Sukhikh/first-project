@@ -25,11 +25,11 @@ pipeline {
     }
 
     stages {
-//            stage("TEST") {
-//            steps {
-//                 sh "echo $CHECK"
-//            }
-//       }
+            stage("TEST") {
+            steps {
+                 sh "echo $WP_VER"
+            }
+       }
 //        stage("View ver WP") {
 //            steps {
 //                sh "ssh root@${params.site} 'grep "wp_version = " /var/www/html/wp-includes/version.php'
