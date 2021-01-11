@@ -29,7 +29,7 @@ pipeline {
             steps {
                  sh(
             returnStdout: true,
-            script: """ 'ssh root@${params.site} 'grep "wp_version = 5.6" /var/www/html/wp-includes/version.php'' """)
+            script: """ ssh root@${params.site} 'grep "wp_version = 5.6" /var/www/html/wp-includes/version.php' """)
             }
        }
 //        stage("View ver WP") {
