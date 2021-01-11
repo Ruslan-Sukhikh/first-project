@@ -34,10 +34,10 @@ pipeline {
 //       }
         stage("View ver WP") {
             steps {
-                sh '''ssh root@${params.site} << EOF
+                sh """ssh root@${params.site} << EOF
                     grep "wp_version = " /var/www/html/wp-includes/version.php
                     exit
-                    EOF'''
+                    EOF"""
 
             }
         }
