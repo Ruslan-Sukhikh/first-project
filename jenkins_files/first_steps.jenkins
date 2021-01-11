@@ -27,13 +27,14 @@ pipeline {
             steps {
                script {
                 if ($CHECK == "$wp_version = '5.6';"){
-                stage("Download WP and Unzip") {
-                    steps {
-                         sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
-                            }
-                        }
+                echo "OK"
                     }
                 }
+            }
+        }
+        stage("Download WP and Unzip") {
+            steps {
+                 sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
             }
         }
         stage("Update WP") {
