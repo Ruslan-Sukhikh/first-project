@@ -32,7 +32,7 @@ pipeline {
         }
         stage("View ver WP") {
             steps {
-                sh "ssh root@${params.site} 'grep "wp_version = 5.6" /var/www/html/wp-includes/version.php' | awk -F \n"'" '{print $2}' > ./wp_version.txt"
+                sh "ssh root@${params.site} 'grep "wp_version = " /var/www/html/wp-includes/version.php'
             }
         }
         stage("Check version WP") {
