@@ -6,8 +6,8 @@ properties([disableConcurrentBuilds()])
 
 def WP = "https://wordpress.org/wordpress-5.6.zip"
 def WORKDIR = "/var/www/html/"
-//def CHECK = "ssh root@${params.site} 'grep "wp_version = 5.6" /var/www/html/wp-includes/version.php' | awk -F \n"'" '{print $2}' > ./wp_version.txt "
-def WP_VER = "bash -x /var/lib/jenkins/jobs/Update_WP/1.sh && cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt"
+def CHECK = "'ssh root@${params.site} 'grep "wp_version = 5.6" /var/www/html/wp-includes/version.php' | awk -F \n"'" '{print $2}''"
+def WP_VER = "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt"
 
 
 parameters {
@@ -27,7 +27,7 @@ pipeline {
     stages {
             stage("TEST") {
             steps {
-                 sh "echo $WP_VER"
+                 echo "$CHECK"
             }
        }
 //        stage("View ver WP") {
