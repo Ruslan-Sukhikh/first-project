@@ -6,7 +6,7 @@ properties([disableConcurrentBuilds()])
 
 def WP = "https://wordpress.org/wordpress-5.6.zip"
 def WORKDIR = "/var/www/html/"
-def CHECK = "ssh root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php' > ./wp_version.txt "
+//def CHECK = "ssh root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php' > ./wp_version.txt "
 
 parameters {
         string(Name: 'site', description: 'На каком сайте обновить WP')
@@ -32,7 +32,7 @@ pipeline {
                 }
             }
         }
-     
+
         stage("Download WP and Unzip") {
             steps {
                  sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
