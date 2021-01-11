@@ -27,18 +27,14 @@ pipeline {
             steps {
                script {
                 if ($CHECK == "wp_version = '5.6';"){
-                        echo 'I only execute on the master branch'
-                    } else {
-                        echo 'I execute elsewhere'
-                    }
-             }
-          }
-       }
-     }
         stage("Download WP and Unzip") {
             steps {
                 sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
             }
+        }
+        }
+        }
+        }
         }
         stage("Update WP") {
             steps {
