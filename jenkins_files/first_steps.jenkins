@@ -32,8 +32,8 @@ pipeline {
             script: """ ssh root@${params.site} 'grep "wp_version = 5.6" /var/www/html/wp-includes/version.php' """).trim()
             }
       }
-        stage("View ver WP") {
-            steps {
+//        stage("View ver WP") {
+//            steps {
 //                sh """ssh root@${params.site} << EOF
 //                    grep "wp_version = " /var/www/html/wp-includes/version.php
 //                    exit
