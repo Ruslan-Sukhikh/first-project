@@ -24,12 +24,12 @@ pipeline {
         timestamps()
     }
 
-//    stages {
-//            stage("TEST") {
-//            steps {
-//                 echo "$CHECK"
-//            }
-//       }
+   stages {
+            stage("TEST") {
+            steps {
+                 echo "$WP_VER"
+            }
+       }
 //        stage("View ver WP") {
 //            steps {
 //                sh "ssh root@${params.site} 'grep "wp_version = " /var/www/html/wp-includes/version.php'
@@ -63,7 +63,7 @@ pipeline {
             }
         }
     }
- 
+ }
 
 
 
