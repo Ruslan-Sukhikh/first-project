@@ -25,12 +25,11 @@ pipeline {
     stages {
         stage("Check version WP") {
             steps {
-                if (IS_PROD == false && BUILD_EXIST == 0) {
+                if ($CHECK == "wp_version = '5.6';") {
                 echo "Build is exists in S3"
                 currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
                 sleep(1)
               }
-
                 currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
                 sleep(1)
             }
