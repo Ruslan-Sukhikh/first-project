@@ -28,6 +28,8 @@ pipeline {
                script {
                 if ('grep "5.6" /var/lib/jenkins/jobs/Update_WP/wp_version.txt -eq'){
                 echo "OK"
+                    }else{
+                    echo "Not OK"
                     }
                 }
             }
