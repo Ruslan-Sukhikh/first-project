@@ -24,9 +24,12 @@ pipeline {
 
     stages {
         stage("Check version WP") {
+            steps{
+                sh "ssh root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php' > ./wp_version.txt"
+            }
             steps {
                script {
-                if (sh $CHECK == "$wp_version = '5.6';"){
+                if (cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt == "$wp_version = '5.6';"){
                 echo "OK"
                     }
                 }
