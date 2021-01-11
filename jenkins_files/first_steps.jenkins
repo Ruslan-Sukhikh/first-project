@@ -25,22 +25,22 @@ pipeline {
     }
 
    stages {
-//            stage("TEST") {
-//            steps {
-//                 sh(
-//            returnStdout: true,
-//            script: ''' ssh root@${params.site} 'grep "wp_version = 5.6" /var/www/html/wp-includes/version.php' ''')
-//            }
-//       }
+            stage("TEST") {
+            steps {
+                 sh(
+            returnStdout: true,
+            script: """ ssh root@${params.site} 'grep "wp_version = 5.6" /var/www/html/wp-includes/version.php' """).trim()
+            }
+      }
         stage("View ver WP") {
             steps {
-                sh """ssh root@${params.site} << EOF
-                    grep "wp_version = " /var/www/html/wp-includes/version.php
-                    exit
-                    EOF"""
-
-            }
-        }
+//                sh """ssh root@${params.site} << EOF
+//                    grep "wp_version = " /var/www/html/wp-includes/version.php
+//                    exit
+//                   EOF"""
+//
+//            }
+//        }
         stage("Check version WP") {
             steps {
                script {
