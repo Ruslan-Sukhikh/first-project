@@ -55,7 +55,7 @@ environment {
 
         stage("Check version WP") {
             steps {
-                echo "WV = ${env.WP_VER2}"
+                echo "${env.WP_VER2}"
                 script {
                 if (env.WP_VER2 == 5.6) {
                     echo "WP installed 5.6"
