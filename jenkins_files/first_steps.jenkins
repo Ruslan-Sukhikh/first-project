@@ -45,7 +45,7 @@ environment {
        stage("Env Variables") {
             steps {
                 script {
-                    env.LS = sh(script:'ssh root@${params.site} \'grep "wp_version =" /var/www/html/wp-includes/version.php' | \awk -F "'" '{print $2}'\'', returnStdout: true).trim()
+                    env.LS = sh(script:'ssh root@${params.site} \'grep "wp_version =" /var/www/html/wp-includes/version.php' \| awk -F "'" '{print $2}'\'', returnStdout: true).trim()
                     echo "LS = ${env.LS}"
                     // or if you access env variable in the shell command
                     sh 'echo $LS'
