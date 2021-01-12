@@ -38,32 +38,32 @@ environment {
 //                sh 'echo "${env.WP_VER2}"'
                 script {
                 if (env.WP_VER < '5.6') {
-                    stage("Download WP and Unzip") {
-            steps {
-                 sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
-            }
-        }
-        stage("Update WP") {
+                            stage("Update WP") {
             steps {
                 sh "ssh root@${params.site} 'cd /root/ && cp -f -r  wordpress/. $WORKDIR' "
             }
         }
+                }else{
+                    echo "WP old version"
+                    }
+                }
+            }
+        }
+        stage("Download WP and Unzip") {
+            steps {
+                 sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
+            }
+        }
+//        stage("Update WP") {
+//            steps {
+//                sh "ssh root@${params.site} 'cd /root/ && cp -f -r  wordpress/. $WORKDIR' "
+//            }
+//        }
         stage("Change chown") {
             steps {
                 sh "ssh root@${params.site} 'chown -R root:root $WORKDIR' "
             }
         }
-                }else{
-                    stage("finish") {
-            steps {
-                echo "Установлена актуальная версия"
-            }
-        }
-                    }
-                }
-            }
-        }
-
     }
  }
 
