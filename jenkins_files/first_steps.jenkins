@@ -37,11 +37,12 @@ environment {
     }
 
    stages {
-//        stage("TEST") {
-//            steps {
-//                echo "$WP_VER2"
-//            }
-//        }
+        stage("TEST") {
+            steps {
+                echo "$WP_VER2"
+                    sh 'ssh root@${params.site} "grep wp_version = /var/www/html/wp-includes/version.php | awk -F '{print $2}'"'
+            }
+        }
 //       stage("Env Variables") {
 //            steps {
 //                script {
@@ -62,7 +63,7 @@ environment {
                 }else{
                     echo "WP old version"
                     }
-                    }
+                }
             }
         }
         stage("Download WP and Unzip") {
