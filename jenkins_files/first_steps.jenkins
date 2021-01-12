@@ -10,6 +10,11 @@ def WORKDIR = "/var/www/html/"
 //def WP_VER = "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt"
 
 
+def remote = [:]
+    remote.name = 'site'
+    remote.host = '${params.site}'
+    remote.allowAnyHosts = true
+
 parameters {
         string(Name: 'site', description: 'На каком сайте обновить WP')
 
@@ -37,14 +42,19 @@ environment {
             steps {
 //                sh 'echo "${env.WP_VER2}"'
                 script {
-                if (env.WP_VER < '5.6') {
-                    echo "WP installed 5.6"
+                if (env.WP_VER == '5.6') {
+                    echo "NEW VERSION WP"
                 }else{
                     echo "WP old version"
                     }
                 }
             }
         }
+        stage(SSH REMOTE){
+            stage('Remote SSH') {
+      sshCommand remote: remote, command: "ls -lrt"
+    }
+    }
         stage("Download WP and Unzip") {
             steps {
               script {
