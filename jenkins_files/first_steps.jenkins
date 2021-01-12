@@ -46,8 +46,11 @@ environment {
             }
         }
         stage("Download WP and Unzip") {
-            when (env.WP_VER == '5.6'){
             steps {
+              script {
+                if (env.WP_VER == '5.6') {
+                echo "NEW VERSION WP"
+                }else{
                  sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
             }
             }
