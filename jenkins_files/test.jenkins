@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         // Using returnStdout
-        CC = """${sh(
+        WP_VER = """${sh(
                 returnStdout: true,
                 script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
             )}"""
@@ -18,7 +18,7 @@ pipeline {
                 DEBUG_FLAGS = '-g'
             }
             steps {
-                sh 'printenv'
+                sh '$WP_VER'
             }
         }
     }
