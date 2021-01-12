@@ -39,7 +39,6 @@ environment {
    stages {
         stage("TEST") {
             steps {
-                echo "$WP_VER2"
                     sh "ssh root@${params.site} "grep wp_version = /var/www/html/wp-includes/version.php | awk -F '{print $2}'""
             }
         }
