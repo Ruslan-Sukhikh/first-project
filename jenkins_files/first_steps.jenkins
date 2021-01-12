@@ -38,10 +38,10 @@ environment {
 //                sh 'echo "${env.WP_VER2}"'
                 script {
                 if (env.WP_VER < '5.6') {
-                            stage("Update WP") {
-            steps {
-                sh "ssh root@${params.site} 'cd /root/ && cp -f -r  wordpress/. $WORKDIR' "
-            }
+            stage("Update WP") {
+                steps {
+                    sh "ssh root@${params.site} 'cd /root/ && cp -f -r  wordpress/. $WORKDIR' "
+            }   
         }
                 }else{
                     echo "WP old version"
