@@ -50,14 +50,13 @@ pipeline {
             steps {
                script {
                 if ('$WP_VER' == '5.6') {
-                echo "OK"
-                    }else{
-                    echo "Not OK" exit 1
+                    echo "WP installed 5.6" exit 1
+                }else{
+                    echo "WP old versin"
                     }
                 }
             }
         }
-
         stage("Download WP and Unzip") {
             steps {
                  sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
