@@ -55,7 +55,7 @@ environment {
 //        }
             stage("TEST") {
             steps {
-                 echo "$WP_VER"
+                 echo "$WP_VER1"
             }
           }
         stage("Check version WP") {
