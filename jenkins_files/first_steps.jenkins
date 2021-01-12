@@ -45,7 +45,7 @@ environment {
                 }else{
         stage("Download WP and Unzip") {
             steps {
-                echo "Установлена актуальная версия"
+                sh 'echo "Установлена актуальная версия"'
             }
         }
                 }
