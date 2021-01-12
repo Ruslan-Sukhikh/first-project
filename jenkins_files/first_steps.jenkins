@@ -38,6 +38,7 @@ environment {
           }
         stage("Check version WP") {
             steps {
+                echo "$WP_VER"
                script {
                 if ('$WP_VER' == '5.6') {
                     echo "WP installed 5.6" exit 1
