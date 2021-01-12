@@ -61,7 +61,6 @@ environment {
                 }else{
                     echo "WP old version"
                     }
-                }
             }
         }
         stage("Download WP and Unzip") {
