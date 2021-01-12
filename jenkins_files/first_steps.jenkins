@@ -34,7 +34,7 @@ environment {
    stages {
             stage("TEST") {
             steps {
-            script { env.WP_VER = sh(script: "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt", return.Stdout: true).trim() }
+               sh 'printenv'
             }
           }
         stage("Check version WP") {
