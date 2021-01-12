@@ -41,11 +41,11 @@ pipeline {
 //
 //            }
 //        }
-            stage("TEST") {
-            steps {
-                 echo "$CHECK"
-            }
-      }
+//            stage("TEST") {
+//            steps {
+//                 echo "$CHECK"
+//            }
+//      }
         stage("Check version WP") {
             steps {
                script {
