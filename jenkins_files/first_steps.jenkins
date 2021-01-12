@@ -34,7 +34,6 @@ environment {
             stage("TEST") {
             steps {
                echo "$WP_VER"
-               sh 'printenv'
             }
           }
         stage("Check version WP") {
