@@ -44,8 +44,11 @@ environment {
 //        }
 //       stage("Env Variables") {
 //            steps {
+//                environment {
+//                env.LS = sh(script: cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt, returnStdout: true).trim()
+//
+//                }
 //                script {
-//                    env.LS = sh(cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt, returnStdout: true).trim()
 //                    echo "LS = ${env.LS}"
 //                    // or if you access env variable in the shell command
 //                    sh 'echo $LS'
@@ -55,8 +58,8 @@ environment {
 
         stage("Check version WP") {
             steps {
-                echo "${env.WP_VER}"
-                sh 'echo "env.WP_VER"'
+                echo "WV=${env.WP_VER}"
+                sh 'echo $WV'
                 script {
                 if ("${env.WP_VER}" == 5.6) {
                     echo "WP installed 5.6"
