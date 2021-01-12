@@ -51,9 +51,11 @@ environment {
             }
         }
         stage("SSH REMOTE"){
+            steps {
       sshCommand remote: remote, command: "ls -lrt"
     }
-    
+    }
+
         stage("Download WP and Unzip") {
             steps {
               script {
