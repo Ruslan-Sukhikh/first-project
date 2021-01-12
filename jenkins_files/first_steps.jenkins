@@ -24,18 +24,24 @@ environment {
                 returnStdout: true,
                 script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
             )}"""
-    }
+        }
+        WP_VER2 = """${sh(
+                returnStdout: true,
+                script: 'ssh root@${params.site} "grep "wp_version =" /var/www/html/wp-includes/version.php" | awk -F "'" '{print $2}'''
+            )}"""
+        }
+
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
 
    stages {
-            stage("TEST") {
+        stage("TEST") {
             steps {
-               echo "$WP_VER"
+                echo "$WP_VER2"
             }
-          }
+        }
         stage("Check version WP") {
             steps {
                 echo "$WP_VER"
