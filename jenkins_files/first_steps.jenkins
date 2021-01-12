@@ -56,6 +56,7 @@ environment {
             script {
             sh '''
             cd /var/lib/jenkins/workspace/Update_WP/
+            ls -la
             root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php' | awk -F "'" '{print $2}'' > /var/lib/jenkins/jobs/Update_WP/wp_version.txt
             '''
     }
