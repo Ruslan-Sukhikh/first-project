@@ -20,12 +20,8 @@ pipeline {
         label 'master'
         }
 environment {
-        WP_VER = """${sh(
-                returnStdout: true,
-                script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
-            )}"""
 
-        WP_VER2 = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
+        WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
 }
 
     options {
@@ -55,10 +51,9 @@ environment {
 
         stage("Check version WP") {
             steps {
-//                echo "${env.WP_VER2}"
                 script {
-                if (env.WP_VER2 == '5.6') {
-                    echo "WP installed 5.6"
+                if (env.WP_VER == '5.6') {
+                    echo "WP installed 5.6" exit 1
                 }else{
                     echo "WP old version"
                     }
