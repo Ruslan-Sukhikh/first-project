@@ -7,7 +7,7 @@ properties([disableConcurrentBuilds()])
 def WP = "https://wordpress.org/wordpress-5.6.zip"
 def WORKDIR = "/var/www/html/"
 //def CHECK = "ssh root@${params.site} "grep 'wp_version =' /var/www/html/wp-includes/version.php""
-def WP_VER = "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt"
+//def WP_VER = "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt"
 
 
 parameters {
@@ -21,14 +21,9 @@ pipeline {
         }
 environment {
         // Using returnStdout
-        WP_VER1 = """${sh(
+        WP_VER = """${sh(
                 returnStdout: true,
                 script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
-            )}"""
-        // Using returnStatus
-        EXIT_STATUS = """${sh(
-                returnStatus: true,
-                script: 'exit 1'
             )}"""
     }
     options {
@@ -37,25 +32,9 @@ environment {
     }
 
    stages {
-//            stage("TEST") {
-//            steps {
-//                 sh(
-//            returnStdout: true,
-//            script: """ ssh root@${params.site} 'grep "wp_version = 5.6" /var/www/html/wp-includes/version.php' """).trim()
-//            }
-//      }
-//        stage("View ver WP") {
-//            steps {
-//                sh """ssh root@${params.site} << EOF
-//                    grep "wp_version = " /var/www/html/wp-includes/version.php
-//                    exit
-//                   EOF"""
-//
-//            }
-//        }
             stage("TEST") {
             steps {
-                 echo "$WP_VER1"
+            script { env.WP_VER = sh(script: "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt", return.Stdout: true).trim() }
             }
           }
         stage("Check version WP") {
