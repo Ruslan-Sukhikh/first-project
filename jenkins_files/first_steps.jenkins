@@ -55,7 +55,7 @@ environment {
             steps {
             script {
             sh '''
-            echo "ssh root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php' | awk -F "'" '{print $2}'' > /var/lib/jenkins/jobs/Update_WP/1.sh"
+            echo "ssh root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php' | awk -F "'" '{print $2}''" > /var/lib/jenkins/jobs/Update_WP/1.sh"
             '''
     }
     }
