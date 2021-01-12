@@ -19,7 +19,7 @@ pipeline {
     agent { 
         label 'master'
         }
-        WP_VER = """${sh(
+        WP_VER2 = """${sh(
                 returnStdout: true,
                 script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
             )}"""
