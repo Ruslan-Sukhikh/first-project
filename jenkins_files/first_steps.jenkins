@@ -38,14 +38,7 @@ environment {
 //                sh 'echo "${env.WP_VER2}"'
                 script {
                 if (env.WP_VER < '5.6') {
-                    echo "WP installed 5.6" exit 1
-                }else{
-                    echo "WP old version"
-                    }
-                }
-            }
-        }
-        stage("Download WP and Unzip") {
+                    stage("Download WP and Unzip") {
             steps {
                  sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
             }
@@ -60,6 +53,17 @@ environment {
                 sh "ssh root@${params.site} 'chown -R root:root $WORKDIR' "
             }
         }
+                }else{
+                    stage("finish") {
+            steps {
+                echo "Установлена актуальная версия"
+            }
+        }
+                    }
+                }
+            }
+        }
+
     }
  }
 
