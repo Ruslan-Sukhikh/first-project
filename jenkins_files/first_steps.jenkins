@@ -12,7 +12,7 @@ def WORKDIR = "/var/www/html/"
 
 def remote = [:]
     remote.name = 'site'
-    remote.host = '${params.site}'
+    remote.host = 'root@${params.site}'
     remote.allowAnyHosts = true
 
 parameters {
