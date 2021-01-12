@@ -53,7 +53,9 @@ environment {
         }
         stage("SSH REMOTE"){
             steps {
-      sshCommand remote: remote, command: "ls -lrt"
+            script {
+            sh "ssh root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php' \| awk -F "'" '{print $2}'' > /var/lib/jenkins/jobs/Update_WP/wp_version.txt"
+    }
     }
     }
 
