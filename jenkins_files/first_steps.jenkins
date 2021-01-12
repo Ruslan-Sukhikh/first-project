@@ -42,14 +42,12 @@ environment {
                  sh "ssh root@${params.site} 'cd /root/ && cp -f -r  wordpress/. $WORKDIR' "
                  sh "ssh root@${params.site} 'chown -R root:root $WORKDIR' "
 
-                }else{
-        stage("Download WP and Unzip") {
-            steps {
-                sh 'echo "Установлена актуальная версия"'
-            }
-        }
-                }
 
+
+                }else{
+                    currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
+                sleep(1)
+                    }
                 }
             }
         }
