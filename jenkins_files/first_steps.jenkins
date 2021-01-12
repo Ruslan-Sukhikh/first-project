@@ -24,9 +24,9 @@ environment {
                 returnStdout: true,
                 script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
             )}"""
-        }
-        WP_VER2 = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
 
+        WP_VER2 = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
+}
 
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
