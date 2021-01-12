@@ -19,10 +19,18 @@ pipeline {
     agent { 
         label 'master'
         }
-        WP_VER2 = """${sh(
+environment {
+        // Using returnStdout
+        WP_VER1 = """${sh(
                 returnStdout: true,
                 script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
             )}"""
+        // Using returnStatus
+        EXIT_STATUS = """${sh(
+                returnStatus: true,
+                script: 'exit 1'
+            )}"""
+    }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
