@@ -25,11 +25,8 @@ environment {
                 script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
             )}"""
         }
-//        WP_VER2 = """${sh(
-//                returnStdout: true,
-//                script: 'ssh root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php' | awk -F "'" '{print $2}'''
-//            )}"""
-//        }
+        WP_VER2 = "${sh(script: 'ssh root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php' | awk -F "'" '{print $2}''', returnStdout: true).trim()}"
+
 
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
@@ -58,7 +55,7 @@ environment {
 
         stage("Check version WP") {
             steps {
-                echo "WV = ${env.WP_VER}"
+                echo "${env.WP_VER2}"
                 sh 'echo ${WV}'
                 script {
                 if ("${env.WP_VER}" == 5.6) {
