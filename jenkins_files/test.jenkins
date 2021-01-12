@@ -4,7 +4,7 @@ pipeline {
         // Using returnStdout
         WP_VER = """${sh(
                 returnStdout: true,
-                script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
+                script: 'ssh root@192.168.0.108 "grep 'wp_version =' /var/www/html/wp-includes/version.php'
             )}"""
         // Using returnStatus
         EXIT_STATUS = """${sh(
@@ -18,7 +18,7 @@ pipeline {
                 DEBUG_FLAGS = '-g'
             }
             steps {
-                sh '$WP_VER'
+                sh 'printenv'
             }
         }
     }
