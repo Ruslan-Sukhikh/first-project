@@ -55,11 +55,7 @@ environment {
 
         stage("Check version WP") {
             steps {
-                script {
                 echo "${env.WP_VER}"
-                env.LS = sh(cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt, returnStdout: true).trim()               script {
-                echo "${env.LS}"
-                }
                 if (env.WP_VER == 5.6) {
                     echo "WP installed 5.6"
                 }else{
