@@ -50,7 +50,7 @@ environment {
                 }
             }
         }
-        stage(SSH REMOTE){
+        stage("SSH REMOTE"){
             stage('Remote SSH') {
       sshCommand remote: remote, command: "ls -lrt"
     }
