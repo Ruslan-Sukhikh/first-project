@@ -22,7 +22,7 @@ pipeline {
 environment {
 
         WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
-//        WP_VER2 = "${sh(script: 'ssh root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php', returnStdout: true).trim()}"
+        WP_VER2 = "${sh(script: ssh root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php, returnStdout: true).trim()}"
 
 }
 
@@ -49,7 +49,6 @@ environment {
             script {
             sh """ssh root@${params.site}<< EOF
             grep "wp_version =" /var/www/html/wp-includes/version.php
-            echo "$grep"
             exit
             EOF"""
     }
@@ -58,6 +57,7 @@ environment {
 
         stage("Download WP and Unzip") {
             steps {
+                echo "${env.WP_VER2}"
               script {
                 if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
