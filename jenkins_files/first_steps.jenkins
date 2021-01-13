@@ -49,7 +49,7 @@ environment {
         }
         stage("SSH REMOTE"){
             steps {
-            echo SITE = "ssh root@${params.site} grep "wp_version =" /var/www/html/wp-includes/version.php"
+            echo SITE = "${params.site}"
             sh "echo ST = $SITE"
             script {
             def remote = [:]
