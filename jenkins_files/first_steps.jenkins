@@ -55,7 +55,7 @@ environment {
                   remote.name = "node-1"
                   remote.host = "localhost"
                   remote.allowAnyHosts = true
-                  writeFile file: 'abc.sh', text: 'ssh root@$SITE | grep "wp_version =" /var/www/html/wp-includes/version.php'
+                  writeFile file: 'abc.sh', text: 'ssh root@'$SITE' | grep "wp_version =" /var/www/html/wp-includes/version.php'
     }
     }
     }
