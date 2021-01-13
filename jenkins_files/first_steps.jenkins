@@ -52,16 +52,8 @@ environment {
         }
         stage("SSH REMOTE"){
             steps {
-                sh "ls"
                 sh "sed -i 's/site/${env.WP_VER4}/' ./abc.sh"
-                sh "bash -x ./abc.sh"
-            script {
-            def remote = [:]
-                  remote.name = "jenkins"
-                  remote.host = "localhost"
-                  remote.allowAnyHosts = true
-                  sshScript remote: remote, script: "abc.sh"
-                  }
+                sh "bash abc.sh"
     }
     }
 
