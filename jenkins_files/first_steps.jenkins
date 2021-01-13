@@ -50,10 +50,12 @@ environment {
         stage("SSH REMOTE"){
             steps {
             script {
-            sh """ssh root@${params.site}<< EOF
-            grep "wp_version =" /var/www/html/wp-includes/version.php
-            exit
-            EOF"""
+            def remote = [:]
+                  remote.name = "node-1"
+                  remote.host = "localhost"
+                  remote.allowAnyHosts = true
+                  writeFile file: 'abc.sh', text: ''
+                  sshPut remote: remote, from: 'abc.sh', into: '/etc/nginx'
     }
     }
     }
