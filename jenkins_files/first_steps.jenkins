@@ -53,7 +53,7 @@ environment {
 
         stage("Download WP and Unzip") {
             steps {
-                  sh "sed -i 's/${env.WP_VER4}/site/' ./abc.sh"
+                  sh "sed -i 's/${params.site}/site/' ./abc.sh"
               script {
                 if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
