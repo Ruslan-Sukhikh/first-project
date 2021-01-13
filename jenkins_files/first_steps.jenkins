@@ -49,6 +49,7 @@ environment {
         }
         stage("SSH REMOTE"){
             steps {
+            echo "SITE = ${params.site}"
             script {
             def remote = [:]
                   remote.name = "node-1"
