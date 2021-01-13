@@ -9,6 +9,9 @@ def WORKDIR = "/var/www/html/"
 //def CHECK = "ssh root@${params.site} "grep 'wp_version =' /var/www/html/wp-includes/version.php""
 //def WP_VER = "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt"
 
+def instanceId = sh(
+            returnStdout: true,
+            script: """ ssh root@${params.site} "grep 'wp_version =' /var/www/html/wp-includes/version.php"""").trim()
 
 parameters {
         string(Name: 'site', description: 'На каком сайте обновить WP')
@@ -35,17 +38,13 @@ environment {
 
    stages {
 
-                stage("Check version WP1111") {
+         stage("Check version WP1111") {
                 steps {
-                    script {
-                BUILD_FULL = sh (
-                script: "ssh root@${params.site} \\ grep "wp_version =" /var/www/html/wp-includes/version.php",
-                returnStatus: true
-                   ) == 0
-                echo "Build full flag: ${BUILD_FULL}"
+
+                echo "${instanceId}"
                 }
                 }
-                }
+
         stage("Check version WP") {
             steps {
                 script {
