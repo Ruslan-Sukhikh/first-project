@@ -65,10 +65,10 @@ environment {
 //    }
          stage("SSH REMOTE"){
             steps {
-            script {
+
                 sh "sed -i 's/site/${env.WP_VER4}/' /var/lib/jenkins/workspace/Update_WP/abc.sh"
 
-    }
+    
     }
     }
         stage("Download WP and Unzip") {
