@@ -51,7 +51,7 @@ environment {
         }
         stage("SSH REMOTE"){
             steps {
-            echo SITE = "$WP_VER3" "$WP_VER4"
+            echo $WP_VER3
             script {
             def remote = [:]
                   remote.name = "node-1"
