@@ -50,21 +50,27 @@ environment {
                 }
             }
         }
-        stage("SSH REMOTE"){
-            steps {
-             echo "${params.site}"
-            script {
-            def remote = [:]
-                  remote.name = "node-1"
-                  remote.host = "localhost"
-                  remote.allowAnyHosts = true
+//        stage("SSH REMOTE"){
+//            steps {
+//             echo "${params.site}"
+//            script {
+//            def remote = [:]
+//                  remote.name = "node-1"
+//                  remote.host = "localhost"
+//                  remote.allowAnyHosts = true
 //                  writeFile file: 'abc.sh', text: "${env.WP_VER3}"
-                  sshCommand remote: remote, command: "ls"
-    }
-    }
-    }
+//                  sshCommand remote: remote, command: "ls"
+//    }
+//    }
+//    }
+         stage("SSH REMOTE"){
+            steps {
+            script {
+                sh "sed -i 's/site/${env.WP_VER4}/' /var/lib/jenkins/workspace/Update_WP/abc.sh"
 
-
+    }
+    }
+    }
         stage("Download WP and Unzip") {
             steps {
               script {
