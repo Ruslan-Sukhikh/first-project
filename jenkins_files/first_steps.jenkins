@@ -39,7 +39,7 @@ environment {
                 steps {
                     script {
                 BUILD_FULL = sh (
-                script: "ssh root@${params.site} 'grep 'wp_version =' /var/www/html/wp-includes/version.php'",
+                script: "ssh root@${params.site} "grep 'wp_version =' /var/www/html/wp-includes/version.php"",
                 returnStatus: true
                    ) == 0
                 echo "Build full flag: ${BUILD_FULL}"
