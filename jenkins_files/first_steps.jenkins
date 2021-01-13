@@ -55,7 +55,6 @@ environment {
                   remote.host = "localhost"
                   remote.allowAnyHosts = true
                   writeFile file: 'abc.sh', text: '1'
-                  sshPut remote: remote, from: 'abc.sh', into: '/etc/nginx'
     }
     }
     }
