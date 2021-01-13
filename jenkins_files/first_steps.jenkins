@@ -43,7 +43,7 @@ environment {
                 if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
                 }else{
-                 sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
+                 sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip && rm wordpress-5.6.zip ' "
             }
             }
             }
@@ -54,7 +54,7 @@ environment {
                if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
                 }else{
-                sh "ssh root@${params.site} 'cd /root/ && cp -f -r  wordpress/. $WORKDIR' "
+                sh "ssh root@${params.site} 'cd /root/ && cp -f -r  wordpress/. $WORKDIR && rm -Rf /wordpress' "
             }
             }
             }
