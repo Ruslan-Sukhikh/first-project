@@ -67,8 +67,9 @@ environment {
             steps {
 
                 sh "sed -i 's/site/${env.WP_VER4}/' /var/lib/jenkins/workspace/Update_WP/abc.sh"
+                sh "ls"
 
-    
+
     }
     }
         stage("Download WP and Unzip") {
