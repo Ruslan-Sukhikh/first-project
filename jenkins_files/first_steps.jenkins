@@ -47,9 +47,10 @@ environment {
         stage("SSH REMOTE"){
             steps {
             script {
-            sh '''
-            root@${params.site} 
-            '''
+            sh """ssh root@${params.site} << EOF
+            grep "wp_version =" /var/www/html/wp-includes/version.php
+            exit
+            EOF"""
     }
     }
     }
