@@ -6,8 +6,6 @@ properties([disableConcurrentBuilds()])
 
 def WP = "https://wordpress.org/wordpress-5.6.zip"
 def WORKDIR = "/var/www/html/"
-def WP_VER2 = "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt"
-
 
 parameters {
         string(Name: 'site', description: 'На каком сайте обновить WP')
@@ -33,16 +31,9 @@ environment {
 
         stage("Check version WP") {
             steps {
-                echo "$WP_VER2"
                 sh "sed -i 's/site/${params.site}/' ./abc.sh"
                 sh "bash abc.sh"
-                script {
-                if (env.WP_VER == '5.6') {
-                    echo "NEW VERSION WP"
-                }else{
-                    echo "WP old version"
-                    }
-                }
+
             }
         }
 
