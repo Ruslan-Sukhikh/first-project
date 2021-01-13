@@ -10,12 +10,11 @@ def WORKDIR = "/var/www/html/"
 //def WP_VER = "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt"
 
 def instanceId = sh(
-            returnStdout: true,
             script: """ ssh root@${params.site}<< EOF
             grep 'wp_version =' /var/www/html/wp-includes/version.php
             exit
             EOF
-            """).trim()
+            """)
 
 parameters {
         string(Name: 'site', description: 'На каком сайте обновить WP')
