@@ -54,7 +54,7 @@ environment {
             steps {
                 sh "ls"
                 sh "sed -i 's/site/${env.WP_VER4}/' ./abc.sh"
-                sh 'bash abc.sh'
+                sh "bash -x ./abc.sh"
             script {
             def remote = [:]
                   remote.name = "jenkins"
