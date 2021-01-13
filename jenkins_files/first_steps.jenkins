@@ -10,12 +10,6 @@ def WORKDIR = "/var/www/html/"
 //def WP_VER = "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt"
 
 
-def remote = [:]
-    remote.name = 'site'
-    remote.host = '192.168.0.110'
-    remote.user = 'root'
-    remote.allowAnyHosts = true
-
 parameters {
         string(Name: 'site', description: 'На каком сайте обновить WP')
 
@@ -31,7 +25,7 @@ environment {
                     echo "NEW VERSION WP"
                     currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
                 sleep(1)
-
+}
 pipeline {
     agent { 
         label 'master'
