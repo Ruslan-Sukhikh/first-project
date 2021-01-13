@@ -64,6 +64,16 @@ environment {
 //    }
 //    }
 
+        stage("test") {
+            steps {
+              script {
+
+                 sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip' "
+
+            }
+            }
+        }
+
         stage("Download WP and Unzip") {
             steps {
               script {
