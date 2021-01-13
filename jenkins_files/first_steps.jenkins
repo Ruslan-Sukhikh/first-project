@@ -49,7 +49,6 @@ environment {
             script {
             sh """ssh root@${params.site}<< EOF
             grep "wp_version =" /var/www/html/wp-includes/version.php
-            awk -F "'" '{print $2}'
             exit
             EOF"""
     }
