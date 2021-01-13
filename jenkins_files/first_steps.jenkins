@@ -48,7 +48,7 @@ environment {
             steps {
             script {
             sh '''
-            root@192.168.0.109 grep wp_version = /var/www/html/wp-includes/version.php | awk -F "'" '{print $2}
+            root@${params.site} 
             '''
     }
     }
