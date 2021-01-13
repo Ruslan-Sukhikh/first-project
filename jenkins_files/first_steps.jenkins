@@ -64,8 +64,12 @@ environment {
 //    }
          stage("SSH REMOTE"){
             steps {
-                sh "sed -i 's/site/${env.WP_VER4}/' ./abc.sh"
-                sh "ls"
+            script {
+    sh """ sed -i 's/site/${env.WP_VER4}/' ./abc.sh<< EOF
+    exit
+    EOF"""
+    }
+
     }
     }
         stage("Download WP and Unzip") {
