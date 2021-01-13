@@ -11,7 +11,7 @@ def WORKDIR = "/var/www/html/"
 
 def instanceId = sh(
             returnStdout: true,
-            script: """ ssh root@${params.site}
+            script: """ ssh root@${params.site}\
             grep 'wp_version =' /var/www/html/wp-includes/version.php""").trim()
 
 parameters {
