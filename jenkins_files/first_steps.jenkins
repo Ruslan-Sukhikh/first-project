@@ -44,8 +44,8 @@ environment {
 //                sh 'echo "${env.WP_VER2}"'
                 script {
                 if (env.WP_VER == '5.6') {
-                currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
-                sleep(1)
+                currentBuild.result = 'SUCCESS'
+                return
                 }else{
                     echo "WP old version"
                     }
