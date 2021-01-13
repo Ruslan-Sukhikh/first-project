@@ -63,14 +63,14 @@ environment {
     }
     }
 
-        stage("test"){
-            steps {
-             echo "${env.WP_VER3}"
-            script {
-            sh "${env.WP_VER3}"
-    }
-    }
-    }
+//        stage("test"){
+//            steps {
+//             echo "${env.WP_VER3}"
+//            script {
+//            sh "${env.WP_VER3}"
+//    }
+//    }
+//    }
 
 
         stage("Download WP and Unzip") {
