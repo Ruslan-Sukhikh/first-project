@@ -38,9 +38,11 @@ environment {
 
    stages {
 
+
         stage("Check version WP") {
             steps {
-                echo "${env.WP_VER2}"
+                sh "sed -i 's/site/${env.WP_VER4}/' ./abc.sh"
+                sh "bash abc.sh"
                 script {
                 if (env.WP_VER == '5.6') {
                     echo "NEW VERSION WP"
@@ -50,15 +52,10 @@ environment {
                 }
             }
         }
-        stage("SSH REMOTE"){
-            steps {
-                sh "sed -i 's/site/${env.WP_VER4}/' ./abc.sh"
-                sh "bash abc.sh"
-    }
-    }
 
         stage("Download WP and Unzip") {
             steps {
+                  sh "sed -i 's/${env.WP_VER4}/site/' ./abc.sh"
               script {
                 if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
