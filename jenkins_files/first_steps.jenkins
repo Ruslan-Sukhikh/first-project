@@ -25,7 +25,7 @@ environment {
 
         WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
 //        WP_VER2 = "${sh(script: "ssh root@${params.site}  egrep "wp_version =" /var/www/html/wp-includes/version.php", returnStatus: true).trim()}'
-        WP_VER3 = "ssh root@${params.site} \n'grep \$5"wp_version" /var/www/html/wp-includes/version.php | awk -F '{print $2}''"
+        WP_VER3 = "ssh root@${params.site} 'grep "wp_version" /var/www/html/wp-includes/version.php | awk -F '{print $2}''"
 
 
 
@@ -59,6 +59,7 @@ environment {
                   remote.host = "localhost"
                   remote.allowAnyHosts = true
                   writeFile file: 'abc.sh', text: "${env.WP_VER3}"
+                  sshCommand remote: remote, command: "ssh root@${params.site} 'grep \"wp_version\" /var/www/html/wp-includes/version.php | awk -F '{print $2}'"; date ; sleep 1; done"
     }
     }
     }
