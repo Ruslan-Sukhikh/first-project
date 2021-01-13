@@ -35,15 +35,19 @@ environment {
 
    stages {
 
-        stage("Check version WP") {
-            steps {
-                // Test commit message for flags
+                stage("Check version WP1111") {
+                steps {
+                    script {
                 BUILD_FULL = sh (
                 script: "ssh root@${params.site}'",
                 returnStatus: true
                    ) == 0
                 echo "Build full flag: ${BUILD_FULL}"
-
+                }
+                }
+                }
+        stage("Check version WP") {
+            steps {
                 echo "${env.WP_VER2}"
                 script {
                 if (env.WP_VER == '5.6') {
