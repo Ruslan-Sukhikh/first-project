@@ -30,27 +30,62 @@ pipeline {
 
    stages {
 
-        stage("Check version WP") {
+//        stage("Check version WP") {
+//            steps {
+//                sh """
+//                sed -i 's/site/${params.site}/' ./abc.sh
+//                bash abc.sh
+//                sed -i 's/${params.site}/site/' ./abc.sh
+//                """
+//            }
+//        }
+
+        stage("BACKUP SITE") {
             steps {
-                sh """
-                sed -i 's/site/${params.site}/' ./abc.sh
-                bash abc.sh
-                sed -i 's/${params.site}/site/' ./abc.sh
-                """
               script {
                 if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
                 }else{
-                 sh """
-                 ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
-                 ssh root@${params.site} 'cd /opt/wp && rm -rf /opt/wp/wordpress && wget $WP && unzip $WPZIP && rm $WPZIP '
-                 ssh root@${params.site} 'cd /opt/wp/ && cp -f -r  wordpress/. $WORKDIR && rm -Rf wordpress/'
-                 sh "ssh root@${params.site} 'chown -R root:root $WORKDIR'
-                 """
+                 sh "ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*' "
                  }
               }
-            }
+           }
         }
+
+        stage("Download WP and Unzip") {
+            steps {
+              script {
+                if (env.WP_VER == '5.6') {
+                   echo "NEW VERSION WP"
+                }else{
+                 sh "ssh root@${params.site} 'cd /opt/wp && rm -rf /opt/wp/wordpress && wget $WP && unzip $WPZIP && rm $WPZIP ' "
+                 }
+              }
+           }
+        }
+
+        stage("Update WP") {
+            steps {
+              script {
+               if (env.WP_VER == '5.6') {
+                   echo "NEW VERSION WP"
+               }else{
+                sh "ssh root@${params.site} 'cd /opt/wp/ && cp -f -r  wordpress/. $WORKDIR && rm -Rf wordpress/' "
+                }
+              }
+           }
+        }
+        stage("Change chown") {
+            steps {
+              script {
+               if (env.WP_VER == '5.6') {
+                   echo "NEW VERSION WP"
+               }else{
+                sh "ssh root@${params.site} 'chown -R root:root $WORKDIR' "
+                }
+              }
+            }
+         }
     }
  }
 
