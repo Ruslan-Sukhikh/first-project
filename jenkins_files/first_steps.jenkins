@@ -27,12 +27,12 @@ pipeline {
 
    stages {
 
-        stage("Check version WP") {
-            steps {
-                sh "sed -i 's/site/${params.site}/' ./abc.sh"
-                sh "bash abc.sh"
-            }
-        }
+//        stage("Check version WP") {
+//            steps {
+//                sh "sed -i 's/site/${params.site}/' ./abc.sh"
+//                sh "bash abc.sh"
+//            }
+//        }
 
         stage("Download WP and Unzip") {
             steps {
