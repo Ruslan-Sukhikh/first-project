@@ -45,7 +45,7 @@ pipeline {
                  ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
                  ssh root@${params.site} 'cd /opt/wp && rm -rf /opt/wp/wordpress && wget $WP && unzip $WPZIP && rm $WPZIP '
                  ssh root@${params.site} 'cd /opt/wp/ && cp -f -r  wordpress/. $WORKDIR && rm -Rf wordpress/'
-                 sh "ssh root@${params.site} 'chown -R root:root $WORKDIR'
+                 ssh root@${params.site} 'chown -R root:root $WORKDIR'
                  """
                  }
               }
