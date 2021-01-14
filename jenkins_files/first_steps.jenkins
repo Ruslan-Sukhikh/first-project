@@ -24,7 +24,7 @@ pipeline {
 
         environment {
             WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
-            WP_VER2 = "${sh(script: "ssh root@${params.site} \'grep \"wp_version =\" /var/www/html/wp-includes/version.php\' | awk -F \"'\" \'{print $2}\'", returnStdout: true).trim()}"
+//            WP_VER2 = "${sh(script: "ssh root@${params.site} \'grep \"wp_version =\" /var/www/html/wp-includes/version.php\' | awk -F \"'\" \'{print $2}\'", returnStdout: true).trim()}"
 
         }
 
@@ -32,20 +32,19 @@ pipeline {
 
         stage("Check version WP") {
             steps {
-                sh "sed -i 's/site/${params.site}/' ./abc.sh"
-                sh "bash abc.sh"
-                sh "sed -i 's/${params.site}/site/' ./abc.sh"
+                sh "sed -i 's/site/${params.site}/' ./abc.sh" "bash abc.sh" "sed -i 's/${params.site}/site/' ./abc.sh"
+//                sh "bash abc.sh"
+//                sh "sed -i 's/${params.site}/site/' ./abc.sh"
             }
         }
 
         stage("BACKUP SITE") {
             steps {
               script {
-                echo "$env.WP_VER2"
                 if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
                 }else{
-                 sh "ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}.tar /var/www/html/*' "
+                 sh "ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}.tar --exclude /var/www/html/${params.site}/*' "
                  }
               }
            }
