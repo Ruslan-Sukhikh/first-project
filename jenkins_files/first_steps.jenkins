@@ -24,7 +24,7 @@ pipeline {
 
         environment {
             WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
-            WP_VER2 = "${sh(script: 'ssh root@${params.site} 'grep "wp_version =" /var/www/html/wp-includes/version.php' | awk -F "'" '{print $2}'', returnStdout: true).trim()}"
+            WP_VER2 = "${sh(script: 'ssh root@${params.site} \n'grep "wp_version =" /var/www/html/wp-includes/version.php'\n | awk -F "'" '{print $2}'', returnStdout: true).trim()}"
 
         }
 
