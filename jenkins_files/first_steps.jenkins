@@ -41,7 +41,7 @@ pipeline {
                 if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
                 }else{
-                 sh "tar -cvzf /opt/wp/${params.site}.tar /var/www/html/* "
+                 sh "ssh root@${params.site} 'tar -cvzf /opt/wp/${params.site}.tar /var/www/html/*' "
                  }
               }
            }
