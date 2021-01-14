@@ -30,20 +30,19 @@ pipeline {
 
    stages {
 
-        stage("Check version WP") {
-            steps {
-                sh """
-                sed -i 's/site/${params.site}/' ./abc.sh
-                bash abc.sh
-                sed -i 's/${params.site}/site/' ./abc.sh
-                """
-            }
-        }
+//        stage("Check version WP") {
+//            steps {
+//                sh """
+//                sed -i 's/site/${params.site}/' ./abc.sh
+//                bash abc.sh
+//                sed -i 's/${params.site}/site/' ./abc.sh
+//                """
+//            }
+//        }
 
         stage("BACKUP SITE") {
             steps {
               script {
-                echo "$env.WP_VER2"
                 if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
                 }else{
