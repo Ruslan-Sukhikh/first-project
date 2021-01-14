@@ -28,12 +28,24 @@ pipeline {
 
    stages {
 
-//        stage("Check version WP") {
-//            steps {
-//                sh "sed -i 's/site/${params.site}/' ./abc.sh"
-//                sh "bash abc.sh"
-//            }
-//        }
+        stage("Check version WP") {
+            steps {
+                sh "sed -i 's/site/${params.site}/' ./abc.sh"
+                sh "bash abc.sh"
+            }
+        }
+
+        stage("BACKUP SITE") {
+            steps {
+              script {
+                if (env.WP_VER == '5.6') {
+                   echo "NEW VERSION WP"
+                }else{
+                 sh "tar -cvzf /opt/wp/${params.site}.tar /var/www/html/* "
+                 }
+              }
+           }
+        }
 
         stage("Download WP and Unzip") {
             steps {
@@ -42,7 +54,7 @@ pipeline {
                 if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
                 }else{
-                 sh "ssh root@${params.site} 'mkdir -p /opt/wp && cd /opt/wp && rm -rf /opt/wp/wordpress /opt/wp/*.zip && wget $WP && unzip $WPZIP && rm $WPZIP ' "
+                 sh "ssh root@${params.site} 'mkdir -p /opt/wp && cd /opt/wp && rm -rf /opt/wp/wordpress && wget $WP && unzip $WPZIP && rm $WPZIP ' "
                  }
               }
            }
