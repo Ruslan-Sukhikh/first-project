@@ -3,38 +3,36 @@
 
 properties([disableConcurrentBuilds()])
 
+    parameters {
+        string(Name: 'site', description: 'На каком сайте обновить WP')
+    }
 
 def WP = "https://wordpress.org/wordpress-5.6.zip"
 def WORKDIR = "/var/www/html/"
 
-parameters {
-        string(Name: 'site', description: 'На каком сайте обновить WP')
-
-}
 
 pipeline {
-    agent { 
-        label 'master'
+         agent {
+            label 'master'
+         }
+
+        options {
+            buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+            timestamps()
         }
-environment {
 
-        WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
-}
-
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-        timestamps()
-    }
+        environment {
+            WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
+        }
 
    stages {
 
-
-//        stage("Check version WP") {
-//            steps {
-//                sh "sed -i 's/site/${params.site}/' ./abc.sh"
-//                sh "bash abc.sh"
-//            }
-//        }
+        stage("Check version WP") {
+            steps {
+                sh "sed -i 's/site/${params.site}/' ./abc.sh"
+                sh "bash abc.sh"
+            }
+        }
 
         stage("Download WP and Unzip") {
             steps {
@@ -44,33 +42,34 @@ environment {
                    echo "NEW VERSION WP"
                 }else{
                  sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip && rm wordpress-5.6.zip ' "
-            }
-            }
-            }
+                 }
+              }
+           }
         }
+
         stage("Update WP") {
             steps {
-            script {
+              script {
                if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
-                }else{
+               }else{
                 sh "ssh root@${params.site} 'cd /root/ && cp -f -r  wordpress/. $WORKDIR && rm -Rf wordpress/' "
-            }
-            }
-            }
+                }
+              }
+           }
         }
         stage("Change chown") {
             steps {
-                script {
-                  if (env.WP_VER == '5.6') {
+              script {
+               if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
-                }else{
+               }else{
                 sh "ssh root@${params.site} 'chown -R root:root $WORKDIR' "
+                }
+              }
             }
-        }
-        }
+         }
     }
- }
  }
 
 
@@ -91,7 +90,7 @@ def notifySlack(String buildStatus = 'STARTED') {
         color = '#FF9FA1'
     }
 
-    def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:\n${env.BUILD_URL}"
+    def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:\n${params.site}"
 
     slackSend(color: color, message: msg)
 }
