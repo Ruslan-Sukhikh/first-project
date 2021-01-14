@@ -41,7 +41,7 @@ pipeline {
                 if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
                 }else{
-                 sh "ssh root@${params.site} 'rm -rf /root/wordpress /root/latest.zip && wget $WP && unzip wordpress-5.6.zip && rm wordpress-5.6.zip ' "
+                 sh "ssh root@${params.site} 'cd /opt/wp/ && mkdir wp && rm -rf /opt/wp/wordpress /opt/wp/*.zip && wget $WP && unzip wordpress-5.6.zip && rm wordpress-5.6.zip ' "
                  }
               }
            }
@@ -53,7 +53,7 @@ pipeline {
                if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
                }else{
-                sh "ssh root@${params.site} 'cd /root/ && cp -f -r  wordpress/. $WORKDIR && rm -Rf wordpress/' "
+                sh "ssh root@${params.site} 'cd /opt/wp/ && cp -f -r  wordpress/. $WORKDIR && rm -Rf wordpress/' "
                 }
               }
            }
