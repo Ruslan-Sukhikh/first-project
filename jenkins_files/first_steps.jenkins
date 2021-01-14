@@ -32,11 +32,11 @@ pipeline {
 
         stage("Check version WP") {
             steps {
-                sh """
-                sed -i 's/site/${params.site}/' ./abc.sh
-                bash abc.sh
-                sed -i 's/${params.site}/site/' ./abc.sh
-                """
+//                sh """
+//                sed -i 's/site/${params.site}/' ./abc.sh
+//                bash abc.sh
+//                sed -i 's/${params.site}/site/' ./abc.sh
+//                """
               script {
                 if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
