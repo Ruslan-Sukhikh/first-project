@@ -90,7 +90,7 @@ def notifySlack(String buildStatus = 'STARTED') {
         color = '#FF9FA1'
     }
 
-    def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:\n${params.site}"
+    def msg = "${buildStatus}: `${env.JOB_NAME}`:\n${params.site}"
 
     slackSend(color: color, message: msg)
 }
