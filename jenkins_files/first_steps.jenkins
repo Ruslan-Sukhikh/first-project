@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh """
                 sed -i 's/site/${params.site}/' ./check_wp_ver.sh
-                bash abc.sh
+                bash check_wp_ver.sh
                 sed -i 's/${params.site}/site/' ./check_wp_ver.sh
                 """
               script {
