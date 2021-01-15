@@ -33,9 +33,9 @@ pipeline {
         stage("Check version WP") {
             steps {
 //                sh """
-//                sed -i 's/site/${params.site}/' ./abc.sh
+//                sed -i 's/site/${params.site}/' ./check_wp_ver.sh
 //                bash abc.sh
-//                sed -i 's/${params.site}/site/' ./abc.sh
+//                sed -i 's/${params.site}/site/' ./check_wp_ver.sh
 //                """
               script {
                 if (env.WP_VER == '5.6') {
@@ -55,37 +55,10 @@ pipeline {
  }
 
 
-
-def notifySlack(String buildStatus = 'STARTED') {
-    // Build status of null means success.
-    buildStatus = buildStatus ?: 'SUCCESS'
-
-    def color
-
-    if (buildStatus == 'STARTED') {
-        color = '#D4DADF'
-    } else if (buildStatus == 'SUCCESS') {
-        color = '#BDFFC3'
-    } else if (buildStatus == 'UNSTABLE') {
-        color = '#FFFE89'
-    } else {
-        color = '#FF9FA1'
+ post {
+        always {
+	    /* Use slackNotifier.groovy from shared library and provide current build result as parameter */
+            slackNotifier(currentBuild.currentResult)
+            cleanWs()
+        }
     }
-
-    def msg = "${buildStatus}: `${env.JOB_NAME}`:\n${params.site}"
-
-    slackSend(color: color, message: msg)
-}
-
-node {
-    try {
-        notifySlack()
-
-        // Existing build steps.
-    } catch (e) {
-        currentBuild.result = 'FAILURE'
-        throw e
-    } finally {
-        notifySlack(currentBuild.result)
-    }
-}
