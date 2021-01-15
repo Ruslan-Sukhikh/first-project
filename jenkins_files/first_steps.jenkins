@@ -28,6 +28,7 @@ pipeline {
                 sed -i 's/${params.site}/site/g' ./check_wp_ver.sh
                 sleep 5
                 """
+                echo "${env.WP_VER}"
               script {
                 if (env.WP_VER == "${wpver}") {
                    echo "NEW VERSION WP"
