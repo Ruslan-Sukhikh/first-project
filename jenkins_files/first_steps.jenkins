@@ -45,5 +45,11 @@ pipeline {
               }
            }
         }
+        stage("Clear") {
+        sh"""
+        cat /dev/null > /var/lib/jenkins/jobs/Update_WP/wp_version.txt
+        """
+
+        }
     }
  }
