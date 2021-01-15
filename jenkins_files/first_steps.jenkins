@@ -26,7 +26,6 @@ pipeline {
             WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
 //            WP_VER2 = "${sh(script: "ssh root@${params.site} \'grep \"wp_version =\" /var/www/html/wp-includes/version.php\' | awk -F \"'\" \'{print $2}\'", returnStdout: true).trim()}"
 
-        slackSend "started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)" 
         }
 
    stages {
@@ -41,6 +40,7 @@ pipeline {
               script {
                 if (env.WP_VER == '5.6') {
                    echo "NEW VERSION WP"
+                   slackSend color: '#BADA55', message: 'Hello, World!'
                 }else{
                  sh """
                  ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
