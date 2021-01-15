@@ -43,7 +43,7 @@ pipeline {
 
         stage("Update WP") {
             steps {
-              echo ${env.WP_VER}
+              echo "${env.WP_VER}"
               script {
                 if (env.WP_VER == "${wpver}") {
                    echo "NEW VERSION WP"
