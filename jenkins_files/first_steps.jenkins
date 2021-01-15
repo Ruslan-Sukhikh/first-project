@@ -47,7 +47,9 @@ pipeline {
         stage("Clear") {
             steps {
                 echo "${env.WP_VER}"
-                sh 'cat /dev/null > /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
+                sh 'rm /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
+                sh 'touch /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
+
            }
         }
     }
