@@ -29,14 +29,20 @@ pipeline {
 
    stages {
 
-        stage("Update WP") {
+         stage("Check VER WP") {
             steps {
                 sh """
                 sed -i 's/site/${params.site}/g' ./check_wp_ver.sh
                 bash check_wp_ver.sh
                 sed -i 's/${params.site}/site/g' ./check_wp_ver.sh
-                sleep 3
                 """
+           }
+        }
+
+
+
+        stage("Update WP") {
+            steps {
               script {
                 if (env.WP_VER == "${wpver}") {
                    echo "NEW VERSION WP"
