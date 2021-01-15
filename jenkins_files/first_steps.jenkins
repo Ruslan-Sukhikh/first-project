@@ -35,13 +35,14 @@ pipeline {
                 sh """
                 sed -i 's/site/${params.site}/' ./check_wp_ver.sh
                 bash check_wp_ver.sh
+                sed -i 's/${params.site}/site/' ./check_wp_ver.sh
                 """
               script {
                 if (env.WP_VER == '${wpver}') {
                    echo "NEW VERSION WP"
-                   slackSend color: '#68ff33', message: "CURRENT VERSION WP - ${params.site}"
+                   slackSend color: '#68ff33', message: "CURRENT WP VERSION - ${params.site}"
                 }else{
-                 slackSend color: '#ff4233', message: "VERSION ${wpver} WP - UPDATING - ${params.site}"
+                 slackSend color: '#ff4233', message: "WP VERSION ${wpver} - UPDATING - ${params.site}"
                  sh """
                  ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
                  ssh root@${params.site} 'cd /opt/wp/ && rm -rf /opt/wp/wordpress && wget $WP && unzip $WPZIP && rm $WPZIP '
