@@ -35,6 +35,7 @@ pipeline {
                 sed -i 's/site/${params.site}/g' ./check_wp_ver.sh
                 bash check_wp_ver.sh
                 sed -i 's/${params.site}/site/g' ./check_wp_ver.sh
+                sleep 5
                 """
            }
         }
