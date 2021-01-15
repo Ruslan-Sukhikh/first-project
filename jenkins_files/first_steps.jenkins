@@ -12,7 +12,7 @@ properties([disableConcurrentBuilds()])
 def WP = "https://wordpress.org/wordpress-${wpver}.zip"
 def WPZIP = "wordpress-${wpver}.zip"
 def WORKDIR = "/var/www/html/${params.site}"
-def WP_VER2 = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
+def WP_VER2 = sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true)
 
 pipeline {
          agent {
