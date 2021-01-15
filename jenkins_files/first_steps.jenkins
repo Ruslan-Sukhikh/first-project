@@ -4,8 +4,8 @@
 properties([disableConcurrentBuilds()])
 
     parameters {
-        string(Name: 'site', description: 'На каком сайте обновить WP')
-        string(Name: 'wpver', description: 'Какую версию WP установить')
+        string(Name: 'site', description: 'Укажите сайт')
+        choice(Name: 'wpver', description: 'Какую версию WP установить')
 
     }
 
@@ -32,9 +32,9 @@ pipeline {
         stage("Update WP") {
             steps {
                 sh """
-                sed -i 's/site/${params.site}/' ./check_wp_ver.sh
+                sed -i 's/site/${params.site}/g' ./check_wp_ver.sh
                 bash check_wp_ver.sh
-                sed -i 's/${params.site}/site/' ./check_wp_ver.sh
+                sed -i 's/${params.site}/site/g' ./check_wp_ver.sh
                 """
               script {
                 if (env.WP_VER == "${wpver}") {
@@ -43,7 +43,7 @@ pipeline {
                 }else{
                  slackSend color: '#ff4233', message: "WP VERSION ${wpver} - UPDATING - ${params.site}"
                  sh """
-                 ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}-"date +%d-%a-%R".tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
+                 ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}-date +%m-%d-%y.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
                  ssh root@${params.site} 'cd /opt/wp/ && rm -rf /opt/wp/wordpress && wget $WP && unzip $WPZIP && rm $WPZIP '
                  ssh root@${params.site} 'cd /opt/wp/ && cp -f -r  wordpress/. $WORKDIR && rm -Rf wordpress/'
                  ssh root@${params.site} 'chown -R root:root $WORKDIR'
