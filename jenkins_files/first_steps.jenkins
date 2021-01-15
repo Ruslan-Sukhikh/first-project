@@ -26,6 +26,7 @@ pipeline {
             WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
 //            WP_VER2 = "${sh(script: "ssh root@${params.site} \'grep \"wp_version =\" /var/www/html/wp-includes/version.php\' | awk -F \"'\" \'{print $2}\'", returnStdout: true).trim()}"
 
+        slackSend "started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)" 
         }
 
    stages {
@@ -52,16 +53,6 @@ pipeline {
            }
         }
     }
-
-
- post {
-        always {
-	    /* Use slackNotifier.groovy from shared library and provide current build result as parameter */
-            slackNotifier(currentBuild.currentResult)
-            cleanWs()
-        }
-    }
-
  }
 
 
