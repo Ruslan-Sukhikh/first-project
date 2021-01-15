@@ -37,7 +37,7 @@ pipeline {
                 sed -i 's/${params.site}/site/' ./check_wp_ver.sh
                 """
               script {
-                if (env.WP_VER == '${wpver}') {
+                if (env.WP_VER == ${wpver}) {
                    echo "NEW VERSION WP"
                    slackSend color: '#68ff33', message: "CURRENT WP VERSION - ${params.site}"
                 }else{
