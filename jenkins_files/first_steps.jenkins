@@ -35,17 +35,16 @@ pipeline {
                 sed -i 's/site/${params.site}/g' ./check_wp_ver.sh
                 bash check_wp_ver.sh
                 sed -i 's/${params.site}/site/g' ./check_wp_ver.sh
-                sleep(3)
                 """
               script {
                 if (env.WP_VER == "${wpver}") {
                    echo "NEW VERSION WP"
                    slackSend color: '#68ff33', message: "CURRENT WP VERSION - ${params.site}"
-                   sh 'rm /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
+                   sh 'cat /dev/null > /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
                 }else{
                  slackSend color: '#ff4233', message: "WP VERSION ${wpver} - UPDATING - ${params.site}"
                  sh """
-                 rm /var/lib/jenkins/jobs/Update_WP/wp_version.txt
+                 cat /dev/null > /var/lib/jenkins/jobs/Update_WP/wp_version.txt
                  ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}_`date +%d.%m.%y`.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
                  ssh root@${params.site} 'cd /opt/wp/ && rm -rf /opt/wp/wordpress && wget $WP && unzip $WPZIP && rm $WPZIP '
                  ssh root@${params.site} 'cd /opt/wp/ && cp -f -r  wordpress/. $WORKDIR && rm -Rf wordpress/'
