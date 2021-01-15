@@ -35,7 +35,7 @@ pipeline {
                 sh """
                 sed -i 's/site/${params.site}/' ./check_wp_ver.sh
                 bash check_wp_ver.sh
-                sed -i 's/${params.site}/site/' ./check_wp_ver.sh
+//                sed -i 's/${params.site}/site/' ./check_wp_ver.sh
                 """
               script {
                 if (env.WP_VER == '${wpver}') {
