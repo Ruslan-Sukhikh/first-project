@@ -11,7 +11,7 @@ properties([disableConcurrentBuilds()])
 
 def WP = "https://wordpress.org/wordpress-${wpver}.zip"
 def WPZIP = "wordpress-${wpver}.zip"
-def WORKDIR = "/var/www/html/"
+def WORKDIR = "/var/www/html/${params.site}"
 //def WPVER = "${wpver}"
 
 pipeline {
@@ -32,11 +32,11 @@ pipeline {
 
         stage("Update WP") {
             steps {
-//                sh """
-//                sed -i 's/site/${params.site}/' ./check_wp_ver.sh
-//                bash abc.sh
-//                sed -i 's/${params.site}/site/' ./check_wp_ver.sh
-//                """
+                sh """
+                sed -i 's/site/${params.site}/' ./check_wp_ver.sh
+                bash abc.sh
+                sed -i 's/${params.site}/site/' ./check_wp_ver.sh
+                """
               script {
                 if (env.WP_VER == '${wpver}') {
                    echo "NEW VERSION WP"
