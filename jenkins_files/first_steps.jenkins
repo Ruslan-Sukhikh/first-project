@@ -5,12 +5,14 @@ properties([disableConcurrentBuilds()])
 
     parameters {
         string(Name: 'site', description: 'На каком сайте обновить WP')
+        string(Name: 'wpver', description: 'Какую версию WP установить')
+
     }
 
-def WP = "https://wordpress.org/wordpress-5.6.zip"
-def WPZIP = "wordpress-5.6.zip"
+def WP = "https://wordpress.org/wordpress-${wpver}.zip"
+def WPZIP = "wordpress-${wpver}.zip"
 def WORKDIR = "/var/www/html/"
-
+//def WPVER = "${wpver}"
 
 pipeline {
          agent {
@@ -24,13 +26,11 @@ pipeline {
 
         environment {
             WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
-//            WP_VER2 = "${sh(script: "ssh root@${params.site} \'grep \"wp_version =\" /var/www/html/wp-includes/version.php\' | awk -F \"'\" \'{print $2}\'", returnStdout: true).trim()}"
-
         }
 
    stages {
 
-        stage("Check version WP") {
+        stage("Update WP") {
             steps {
 //                sh """
 //                sed -i 's/site/${params.site}/' ./check_wp_ver.sh
@@ -38,7 +38,7 @@ pipeline {
 //                sed -i 's/${params.site}/site/' ./check_wp_ver.sh
 //                """
               script {
-                if (env.WP_VER == '5.6') {
+                if (env.WP_VER == '${wpver}') {
                    echo "NEW VERSION WP"
                    slackSend color: '#68ff33', message: "NEW VERSION WP - ${params.site}"
                 }else{
