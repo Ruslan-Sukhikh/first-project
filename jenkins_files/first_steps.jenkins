@@ -36,25 +36,11 @@ pipeline {
                 bash check_wp_ver.sh
                 sed -i 's/${params.site}/site/g' ./check_wp_ver.sh
                 """
-            script {
-                if (env.WP_VER == "${wpver}") {
-                   echo "NEW VERSION WP"
-                   slackSend color: '#68ff33', message: "CURRENT WP VERSION - ${wpver}"
-                }else{
-                 slackSend color: '#ff4233', message: "WP VERSION ${wpver} - UPDATING - ${wpver}"
-                 sh """
-                 ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}_`date +%d.%m.%y`.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
-                 ssh root@${params.site} 'cd /opt/wp/ && rm -rf /opt/wp/wordpress && wget $WP && unzip $WPZIP && rm $WPZIP '
-                 ssh root@${params.site} 'cd /opt/wp/ && cp -f -r  wordpress/. $WORKDIR && rm -Rf wordpress/'
-                 ssh root@${params.site} 'chown -R root:root $WORKDIR'
-                 """
-                 }
-              }
            }
         }
          stage("Clear") {
             steps {
-                echo '${env.WP_VER}'
+                echo "${env.WP_VER}"
                 sh 'cat /dev/null > /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
            }
         }
