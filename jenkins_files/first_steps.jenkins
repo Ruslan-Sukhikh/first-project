@@ -42,7 +42,7 @@ pipeline {
                    echo "NEW VERSION WP"
                    slackSend color: '#BADA55', message: 'NEW VERSION WP'
                 }else{
-                 slackSend color: '#BADA55', message: 'NEW VERSION WP'
+                 slackSend color: '#BADA55', message: 'OLD VERSION WP - UPDATING'
                  sh """
                  ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
                  ssh root@${params.site} 'cd /opt/wp/ && rm -rf /opt/wp/wordpress && wget $WP && unzip $WPZIP && rm $WPZIP '
