@@ -29,7 +29,7 @@ pipeline {
         stage('Setting the variables values') {
     steps {
          sh '''#!/bin/bash
-cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt
+ssh root@${params.site} 'grep "wp_version =" /var/www/html/site/wp-includes/version.php' | awk -F "'" '{print $2}'
          '''
     }
 }
