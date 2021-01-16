@@ -31,7 +31,7 @@ pipeline {
                 sed -i 's/${params.site}/site/g' ./check_wp_ver.sh
                 sleep 5
                 """
-        def WP_VER = "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt"
+        def WP_VER = 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt'
         echo WP_VER2 = "$WP_VER"
         }
         }
