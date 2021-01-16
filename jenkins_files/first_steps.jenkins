@@ -25,6 +25,12 @@ pipeline {
 
         stage("Clear") {
         steps {
+                        sh """
+                sed -i 's/site/${params.site}/g' ./check_wp_ver.sh
+                bash check_wp_ver.sh
+                sed -i 's/${params.site}/site/g' ./check_wp_ver.sh
+                sleep 5
+                """
         def WP_VER = "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt"
         echo WP_VER2 = "$WP_VER"
         }
@@ -32,12 +38,7 @@ pipeline {
 
         stage("Update WP") {
             steps {
-                sh """
-                sed -i 's/site/${params.site}/g' ./check_wp_ver.sh
-                bash check_wp_ver.sh
-                sed -i 's/${params.site}/site/g' ./check_wp_ver.sh
-                sleep 5
-                """
+
                 echo "$WP_VER2"
               script {
                 if (env.WP_VER == "${wpver}") {
