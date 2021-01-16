@@ -3,10 +3,10 @@
 properties([disableConcurrentBuilds()])
     parameters {
         string(Name: 'site', description: 'Укажите сайт')
-        choice(Name: 'wp-ver', description: 'Какую версию WP установить')
+        choice(Name: 'wp_ver', description: 'Какую версию WP установить')
     }
-def WP = "https://wordpress.org/wordpress-${wp-ver}.zip"
-def WPZIP = "wordpress-${wp-ver}.zip"
+def WP = "https://wordpress.org/wordpress-${wp_ver}.zip"
+def WPZIP = "wordpress-${wp_ver}.zip"
 def WORKDIR = "/var/www/html/${params.site}"
 
 pipeline {
@@ -38,11 +38,11 @@ pipeline {
 
             steps {
               script {
-                if (env.WP_VER == "${wp-ver}") {
+                if (env.WP_VER == "${wp_ver}") {
                    echo "NEW VERSION WP"
-                   slackSend color: '#68ff33', message: "CURRENT WP VERSION - ${wp-ver} - ${params.site}"
+                   slackSend color: '#68ff33', message: "CURRENT WP VERSION - ${wp_ver} - ${params.site}"
                 }else{
-                 slackSend color: '#0000FF', message: "WP VERSION ${wp-ver} - UPDATING - ${params.site}"
+                 slackSend color: '#0000FF', message: "WP VERSION ${wp_ver} - UPDATING - ${params.site}"
                  sh """
                  ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}_`date +%d.%m.%y`.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
                  ssh root@${params.site} 'cd /opt/wp/ && rm -rf /opt/wp/wordpress && wget $WP && unzip $WPZIP && rm $WPZIP '
