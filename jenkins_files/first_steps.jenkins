@@ -8,6 +8,8 @@ properties([disableConcurrentBuilds()])
 def WP = "https://wordpress.org/wordpress-${wpver}.zip"
 def WPZIP = "wordpress-${wpver}.zip"
 def WORKDIR = "/var/www/html/${params.site}"
+def WP_VER = sh(script: "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt", returnStdout: true).trim() as Integer
+
 pipeline {
          agent {
             label 'master'
@@ -30,7 +32,6 @@ pipeline {
                 """
                 echo "$WP_VER"
               script {
-           def WP_VER = sh(script: "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt", returnStdout: true).trim() as Integer
                 if (env.WP_VER == "${wpver}") {
                    echo "NEW VERSION WP"
                    slackSend color: '#68ff33', message: "CURRENT WP VERSION - ${wpver}"
