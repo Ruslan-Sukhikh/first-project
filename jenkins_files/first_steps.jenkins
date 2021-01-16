@@ -55,13 +55,14 @@ pipeline {
            }
         }
     }
- }
 
-
- post {
+     post {
     success {
         slackSend channel: '#update_wp',
                   color: 'good',
                   message: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
     }
 }
+ }
+
+
