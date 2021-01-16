@@ -37,7 +37,6 @@ pipeline {
            }
 
             steps {
-                echo "${env.WP_VER}"
               script {
                 if (env.WP_VER == "${wpver}") {
                    echo "NEW VERSION WP"
@@ -56,17 +55,17 @@ pipeline {
         }
     }
 
-     post {
-    success {
-        slackSend channel: '#update_wp',
+        post {
+             success {
+                  slackSend channel: '#update_wp',
                   color: 'good',
                   message: "${params.site} update completed successfully."
-    }
-        failure {
-        slackSend channel: '#update_wp',
+             }
+            failure {
+                  slackSend channel: '#update_wp',
                   color: '#FF0000',
                   message: "${params.site} update failure."
-    }
-}
+            }
+        }
  }
 
