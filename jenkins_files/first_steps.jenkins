@@ -21,18 +21,10 @@ pipeline {
             buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
             timestamps()
         }
-        environment {
-            WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
-        }
+//        environment {
+//            WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
+//        }
    stages {
-
-        stage('Setting the variables values') {
-    steps {
-         sh """#!/bin/sh
-        ssh root@${params.site} 'grep "wp_version =" /var/www/html/site/wp-includes/version.php' | awk -F "'" '{print $2}'
-         """
-    }
-}
 
 
         stage("Clear") {
@@ -48,6 +40,9 @@ pipeline {
 
         stage("Update WP") {
             steps {
+                    environment {
+            WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
+        }
 
                 echo "${env.WP_VER}"
               script {
