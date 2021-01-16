@@ -28,7 +28,7 @@ pipeline {
                 sed -i 's/${params.site}/site/g' ./check_wp_ver.sh
                 sleep 5
                 """
-                echo "${env.WP_VER}"
+                echo "$WP_VER"
               script {
            def WP_VER = sh(script: "cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt", returnStdout: true).trim() as Integer
                 if (env.WP_VER == "${wpver}") {
