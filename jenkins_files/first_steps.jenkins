@@ -43,7 +43,7 @@ pipeline {
                    echo "NEW VERSION WP"
                    slackSend color: '#68ff33', message: "CURRENT WP VERSION - ${wpver} - ${params.site}"
                 }else{
-                 slackSend color: '#ff4233', message: "WP VERSION ${wpver} - UPDATING - ${params.site}"
+                 slackSend color: '#0000FF', message: "WP VERSION ${wpver} - UPDATING - ${params.site}"
                  sh """
                  ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}_`date +%d.%m.%y`.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
                  ssh root@${params.site} 'cd /opt/wp/ && rm -rf /opt/wp/wordpress && wget $WP && unzip $WPZIP && rm $WPZIP '
@@ -60,9 +60,17 @@ pipeline {
     success {
         slackSend channel: '#update_wp',
                   color: 'good',
-                  message: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
+                  message: "${params.site} update completed successfully."
+    }
+        failure {
+        slackSend channel: '#update_wp',
+                  color: '#FF0000',
+                  message: "${params.site} update failure."
     }
 }
  }
 
 
+always {}
+success {}
+failure {}
