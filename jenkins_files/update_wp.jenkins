@@ -46,7 +46,7 @@ pipeline {
                 }else{
                 echo "${wp_ver}"
                    echo env.WP_VER_SITE
-                 slackSend color: '#0000FF', message: "WP VERSION "env.WP_VER_SITE" -> ${wp_ver} - UPDATING - ${params.site}"
+                 slackSend color: '#0000FF', message: "WP VERSION 'env.WP_VER_SITE' -> ${wp_ver} - UPDATING - ${params.site}"
                  sh """
                  ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}_`date +%d.%m.%y`.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
                  ssh root@${params.site} 'cd /opt/wp/ && rm -rf /opt/wp/wordpress && wget $WP && unzip $WPZIP && rm $WPZIP '
