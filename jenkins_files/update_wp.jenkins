@@ -33,17 +33,19 @@ pipeline {
 
         stage("Update WP") {
            environment {
-            WP_VER1 = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
+            WP_VER_SITE = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
            }
 
             steps {
               script {
-                if (env.WP_VER1 == "${wp_ver}") {
+                if (env.WP_VER_SITE == "${wp_ver}") {
                    echo "NEW VERSION WP"
                    echo "${wp_ver}"
-                   echo env.WP_VER
+                   echo env.WP_VER1
                    slackSend color: '#68ff33', message: "CURRENT WP VERSION - ${wp_ver} - ${params.site}"
                 }else{
+                echo "${wp_ver}"
+                   echo env.WP_VER_SITE
                  slackSend color: '#0000FF', message: "WP VERSION ${wp_ver} - UPDATING - ${params.site}"
                  sh """
                  ssh root@${params.site} 'mkdir -p /opt/wp && tar -cvzf /opt/wp/${params.site}_`date +%d.%m.%y`.tar --exclude /var/www/html/${params.site}/.git /var/www/html/${params.site}/*'
