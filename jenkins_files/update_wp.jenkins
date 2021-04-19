@@ -41,6 +41,7 @@ pipeline {
                 if (env.WP_VER == "${wp_ver}") {
                    echo "NEW VERSION WP"
                    echo "${wp_ver}"
+                   echo "env.WP_VER"
                    slackSend color: '#68ff33', message: "CURRENT WP VERSION - ${wp_ver} - ${params.site}"
                 }else{
                  slackSend color: '#0000FF', message: "WP VERSION ${wp_ver} - UPDATING - ${params.site}"
