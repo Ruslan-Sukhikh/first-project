@@ -23,9 +23,9 @@ pipeline {
         stage("Check ver. WP") {
             steps {
                 sh """
-                sed -i 's/site/${params.site}/g' ./check_wp_ver.sh
+                sed -i 's/site/${params.site}/g' /var/lib/jenkins/jobs/Update_WP/check_wp_ver.sh
                 bash check_wp_ver.sh
-                sed -i 's/${params.site}/site/g' ./check_wp_ver.sh
+                sed -i 's/${params.site}/site/g' /var/lib/jenkins/jobs/Update_WP/check_wp_ver.sh
                 sleep 5
                 """
             }
