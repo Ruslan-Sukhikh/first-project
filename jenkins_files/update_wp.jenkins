@@ -33,12 +33,12 @@ pipeline {
 
         stage("Update WP") {
            environment {
-            WP_VER = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
+            WP_VER1 = "${sh(script: 'cat /var/lib/jenkins/jobs/Update_WP/wp_version.txt', returnStdout: true).trim()}"
            }
 
             steps {
               script {
-                if (env.WP_VER == "${wp_ver}") {
+                if (env.WP_VER1 == "${wp_ver}") {
                    echo "NEW VERSION WP"
                    echo "${wp_ver}"
                    echo env.WP_VER
