@@ -1,0 +1,1 @@
+ssh root@site 'grep "wp_version =" /var/www/html/site/wp-includes/version.php' | awk -F "'" '{print $2}' > /var/lib/jenkins/jobs/Update_WP/wp_version.txt
