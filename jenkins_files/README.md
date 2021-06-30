@@ -1,0 +1,1 @@
+Need copy file "check_wp_ver.sh" to /var/lib/jenkins/jobs/Update_WP/
